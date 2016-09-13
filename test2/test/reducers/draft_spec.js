@@ -9,25 +9,23 @@ describe('reducers/draft', () => {
         assert.deepEqual(draft(undefined, {}), {})
     });
 
-  it('returns updated state on ATTACHMENT/DELETE with null values for deletedSysID and deletedFileName if there is no file attribute', () => {
+  it('returns updated state on DRAFT/ON_CHANGE for a single field only', () => {
         assert.deepEqual(draft({
-            handbookAttachment: [{
-              file_name: 'file name'
-            }],
-            loading: false,
-            stuff: true,
-            message: null,
         }, {
-          type: 'ATTACHMENT/DELETE',
-        }), {
-            handbookAttachment: [{
-              file_name: 'file name'
-            }],
-            loading: false,
-            message: '',
-            deletedSysId: null,
-            deletedFileName: null,
-            stuff: true
+          type: 'DRAFT/ON_CHANGE',
+          componentId: "PersonComponent_4",
+          table: "User",
+          sysId: 457,
+          field: "first_name",
+          value: "Chris"
+        }), { 
+       "PersonComponent_4": {
+          "User": {
+            "457": {
+              "first_name": "Chris"
+            }
+          }
+        }
         })
     });
   
